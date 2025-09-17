@@ -1,0 +1,238 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage[backend=biber, style=ieee, sorting=none]{biblatex}
+\addbibresource{references.bib}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{float} % Added for better figure placement control
+\usepackage[style=ieee,backend=biber]{biblatex}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={Lab 1 Report},
+    pdfpagemode=FullScreen,
+}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Analysis of Sampling Theorem and Quantization in Digital Communications\\
+{\large ECE 2414: Digital Communications Lab 1}
+}
+
+\author{\IEEEauthorblockN{Denzel Ninga}
+\IEEEauthorblockA{\textit{Department of Electrical and Communication Engineering} \\
+\textit{Multimedia University of Kenya}\\
+Nairobi, Kenya \\
+denzelninga001@gmail.com}
+}
+
+\maketitle
+
+\begin{abstract}
+This laboratory experiment analyzes and verifies the sampling theorem, reconstructs the original signal from the sampled data, and performs quantization using MATLAB codes provided by Dr. Sudip Mandal \cite{mandal2025}.
+  A message signal composed of sinusoidal components is generated at 1 Hz and 3 Hz. The signal is sampled at a rate of 50 Hz, significantly above its effective Nyquist rate, and successfully reconstructed using an ideal low-pass filter. The sampled signal is then quantized using 16 levels and the resulting quantization error is analyzed. The results confirm the theoretical predictions: sampling above the Nyquist rate prevents aliasing and allows for perfect reconstruction, while quantization introduces a bounded, noise-like error, which is fundamental to digital signal representation.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Sampling Theorem, Quantization, Nyquist Rate, Aliasing, Reconstruction, Low Pass Filter, Quantization Error.
+\end{IEEEkeywords}
+
+\section{Introduction}
+\IEEEPARstart{T}{he} transition from analog to digital signal processing is a cornerstone of modern communication systems. It is possible by virtue of the sampling theorem, pioneered by Nyquist and Shannon. The theorem provides the foundation for converting a continuous-time signal into a discrete-time sequence without loss of information \cite{proakis2008digital}. Quantization then maps the continuous amplitudes of this sequence to a finite set of discrete levels, a necessary step for digital representation, which inherently introduces error \cite{haykin2009communication}.
+
+The objectives of this lab are: to first analyze and verify the sampling theorem by reconstructing an original signal from its sampled data; and second, to implement quantization and characterize the resulting quantization error. MATLAB is used for simulation and analysis.
+
+\section{Theoretical Background}
+
+\subsection{Sampling Theorem}
+The link between an analog waveform and its sampled version is provided by the sampling process \cite{sklar2001digital}.
+The Nyquist Sampling Theorem states that to reconstruct a continuous analog signal from its sampled version accurately, the sampling rate must be at least twice the highest frequency present in the signal. This ensures that there are enough samples taken per unit of time to capture all the details of the original waveform without introducing aliasing, which can cause distortion or artifacts in the reconstructed signal.
+
+The formula for the Nyquist Sampling Theorem is given by:
+\begin{equation}
+f_s \geq 2f_m
+\end{equation}
+where $f_s$ is the sampling frequency and $f_m$ is the maximum frequency present in the analog signal.
+
+This theorem is crucial in various fields such as audio and image processing, where analog signals are commonly converted into digital form. By understanding the concept of the Nyquist Sampling Theorem, we can determine the appropriate sampling rates to ensure the accuracy of the digital representation of analog signals.
+
+For a time-limited signal, such as the one used in this lab, the spectrum is not strictly band-limited but exhibits an effective bandwidth $B_{eff}$, containing most of the signal energy. Therefore, the practical sampling rate must be chosen based on $B_{eff}$.
+
+\subsection{Quantization}
+Quantization is the process of converting a continuous-range amplitude into a finite number of discrete levels. For a quantizer with $L$ levels, the step size $\Delta$ is given by:
+\begin{equation}
+\Delta = \frac{x_{max} - x_{min}}{L}
+\end{equation}
+where $x_{max}$ and $x_{min}$ are the maximum and minimum amplitudes of the signal. The quantization error $q(n)$ is the difference between the original sample $x(n)$ and its quantized value $x_q(n)$:
+\begin{equation}
+q(n) = x(n) - x_q(n)
+\end{equation}
+This error is typically modeled as additive noise and is bounded within $[-\Delta/2, \Delta/2]$.
+
+
+\section{Methodology}
+The experiments were conducted using MATLAB codes provided by Dr. Sudip Mandal \cite{mandal2025}. The message signal was defined as:
+\begin{equation}
+x(t) = \sin(2\pi t) - \sin(6\pi t)
+\end{equation}
+This signal contains frequency components at 1 Hz and 3 Hz.
+The results of these labs have been updated in my github repository at :
+\url{https://github.com/plochoidysis-ojwege/Digital-communication-Labs/tree/main/Lab%201}
+\subsection{Experiment 1: Sampling Theorem Analysis}
+\begin{enumerate}
+    \item The signal $x(t)$ was generated with a high time resolution ($t_d = 0.002$ s) to simulate a continuous-time waveform over a 1 second interval.
+    \item Its spectrum was computed using the Fast Fourier Transform (FFT).
+    \item The signal was sampled at $f_s = 50$ Hz ($t_s = 0.02$ s).
+    \item The spectrum of the sampled signal was calculated and plotted.
+\end{enumerate}
+
+The MATLAB code for this experiment is available at:
+\url{https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201/src/Experiment%20one%20-sampling%20theorem%20analysis/1.%20Sampling%20theorem%20analysis.m}
+
+
+\subsection{Experiment 2: Signal Reconstruction}
+\begin{enumerate}
+    \item The sampled signal was upsampled and zero filled to facilitate frequency-domain filtering.
+    \item An ideal low-pass filter (LPF) with a cutoff frequency of 10 Hz (the signal's effective bandwidth) was designed in the frequency domain.
+    \item The spectrum of the sampled signal was multiplied by the LPF's transfer function.
+    \item The inverse FFT (IFFT) of the filtered spectrum was computed to reconstruct the signal in the time domain.
+\end{enumerate}
+
+Find the MATLAB code used here:
+\url{https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201/src/Experiment%20two%20-%20Reconstruction%20from%20sampled%20signal/Reconstruction.m}
+
+
+\subsection{Extension: Quantization}
+\begin{enumerate}
+    \item The signal sampled from Experiment 1 was quantized using uniform levels of $L=16$.
+    \item The quantized signal was plotted against the original sampled signal.
+    \item The quantization error was calculated and plotted.
+\end{enumerate}
+
+The MATLAB code used in this experiment:  
+\url{https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201/src/Quantization/Quantization.m}
+
+
+
+\section{Results and Analysis}
+
+\subsection{Experiment 1: Sampling Theorem Analysis}
+
+\subsubsection{(a) Time and Frequency Domain Analysis}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig1.pdf}
+    \caption{Time-domain plot of the original message signal $x(t) = \sin(2\pi t) - \sin(6\pi t)$.}
+    \label{fig:original_signal}
+\end{figure}
+
+From Fig.~\ref{fig:original_signal}, the continuous-time signal $x(t) = \sin(2\pi t) - \sin(6\pi t)$ is shown. The input message signal is sampled at a 0.02s time step (50Hz), making the discrete simulation appear smooth. The instances are so close that they replicate an analog waveform, confirming that the MATLAB code generates the two sine components at 1Hz and 3Hz without distortion.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig2.pdf}
+    \caption{Spectrum of the original message signal. Peaks are visible at $\pm1$ Hz and $\pm3$ Hz. Spectral leakage confirms the signal is not perfectly band-limited. The effective bandwidth $B_{eff} \approx 10$ Hz.}
+    \label{fig:original_spectrum}
+\end{figure}
+
+From Fig.~\ref{fig:original_spectrum}, which is the magnitude of the FFT (the spectrum of the input message signal), four spikes at $\pm1$ Hz and $\pm3$ Hz are observed, matching the two sinusoidal terms. Theoretically, a time-limited signal cannot be band-limited and vice versa. In Fig.~\ref{fig:original_spectrum}, the signal extends to infinity, though it appears to be zero. In practice, most of the energy lies between $-10$ Hz and $+10$ Hz, defining an effective bandwidth of about 10 Hz and a practical Nyquist rate of 20 Hz.
+
+\subsubsection{(b) Sampling and Frequency Replication}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig3.png}
+    \caption{Discrete-time sampled signal at $f_s = 50$ Hz.}
+    \label{fig:sampled_signal}
+\end{figure}
+
+Fig.~\ref{fig:sampled_signal} shows the sampled signal; discrete-time samples of $x(t)$ at $T_s = 0.02$ s (50 Hz). The stem plots lie exactly on the original waveform's shape. Downsampling by a factor of 10 clearly captures all the information because $50$ Hz $\gg 2 \times 3$ Hz. This visual match shows no aliasing has occurred.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig4.png}
+    \caption{Spectrum of the sampled signal. The original baseband spectrum is periodic at multiples of $f_s = 50$ Hz. The guard band between the baseband and the first image at 50 Hz is evident, confirming no aliasing has occurred.}
+    \label{fig:sampled_spectrum}
+\end{figure}
+
+Fig.~\ref{fig:sampled_spectrum} shows the FFT of the sampled sequence, revealing periodic replicas. The original baseband spectrum is centered at 0 Hz ($-10$ Hz to $+10$ Hz) and repeated images at $\pm50$ Hz, $\pm100$ Hz, etc. The clear guard band between $\pm10$ Hz and $\pm40$ Hz underscores that $f_s = 50$ Hz creates enough separation to prevent overlap, demonstrating the Nyquist‐Shannon sampling theorem in action.
+
+\subsection{Experiment 2: Signal Reconstruction}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig1_2.pdf}
+    \caption{The periodic spectrum of the upsampled signal.}
+    \label{fig:upsampled_spectrum}
+\end{figure}
+Fig.~\ref{fig:upsampled_spectrum} shows the spectrum of the upsampled signal, which appears similar to Fig.~\ref{fig:sampled_spectrum} from Experiment 1. It is centered at 0Hz with repetitions at -50Hz, +50Hz, -100Hz and +100Hz. The baseband copy (-10Hz to +10 Hz) remains intact, while all its images appear at multiples of the sampling rate. The clear guard band between 10Hz and 40Hz shows that no aliasing will occur when LPF is applied.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig2_2.png}
+    \caption{Transfer function of the ideal low-pass filter with a bandwidth of 10 Hz.}
+    \label{fig:lpf}
+\end{figure}
+
+Fig.~\ref{fig:lpf} shows the filter response that passes frequencies between -10Hz and +10Hz and rejects everything else. This demonstrates that designing a low pass filter with bandwidth equal to the effective bandwidth (10Hz) is crucial. This ensures we extract only the true baseband content without unnecessary components.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig3_2.pdf}
+    \caption{Spectrum of the LPF output. The filter has successfully isolated the original baseband spectrum, rejecting all higher-frequency images.}
+    \label{fig:filtered_spectrum}
+\end{figure}
+
+Fig.~\ref{fig:filtered_spectrum} clearly shows the filtered spectrum, where only the center copy remains and the higher frequency images are gone. This shows that multiplication by the LPF's transfer function completely removes the replicas at ±50Hz and beyond. The spectrum is mathematically identical to the original analog spectrum in Fig.~\ref{fig:original_spectrum} (Experiment 1), providing all that is needed for time domain recovery.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig4_2.pdf}
+    \caption{Comparison of the original signal (blue) and the reconstructed signal (red dashed). The near-perfect overlap verifies the sampling theorem.}
+    \label{fig:reconstruction}
+\end{figure}
+
+From Fig.~\ref{fig:reconstruction}, the blue signal shows the time domain representation of the original continuous signal, while the red dashed line represents the reconstructed signal after inverse FFT. The two curves are nearly on top of each other, proving that the ideal filtering and inverse FFT have perfectly restored both amplitude and phase. The small differences come from simulation limits, but in theory it matches the Nyquist-Shannon sampling theorem exactly.
+
+\subsection{Quantization}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig1_3.pdf}
+    \caption{Sampled signal vs. Quantized signal with $L=16$ levels. The quantized signal exhibits a distinct staircase pattern.}
+    \label{fig:quantized}
+\end{figure}
+
+Fig.~\ref{fig:quantized} shows the original discrete time samples (red circles and stems) and their quantized version using 16 uniform levels (shown as blue circles and stems). The red markers trace a smooth waveform, while the blue ones indicate amplitude rounding. With 16 levels, each quantized value snaps to the nearest step size.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig2_3.pdf}
+    \caption{Quantization error, $q(n) = x(n) - x_q(n)$. The error is bounded and noise-like, as predicted by theory.}
+    \label{fig:error}
+\end{figure}
+
+Fig.~\ref{fig:error} shows the difference at each sample instant, plotted as a discrete time plot. It is observed that every error value lies within the theoretical bounds of $[-\Delta/2, \Delta/2]$, matching the theory. The error appears noise-like and uncorrelated with the original waveform. This is why quantization error is modeled as uniform additive noise. It is unavoidable distortion introduced by mapping continuous amplitudes to discrete levels.
+
+\section{Discussion}
+The results successfully demonstrate the principles of sampling and quantization. The absence of aliasing in Fig.~\ref{fig:sampled_spectrum} and the perfect reconstruction in Fig.~\ref{fig:reconstruction} validate the sampling theorem, given that $f_s > 2B_{eff}$. The quantization process, shown in Figs.~\ref{fig:quantized} and \ref{fig:error}, confirms that an error is introduced but is bounded and random.
+\begin{itemize}
+    \item \textbf{Aliasing:} Fig.~\ref{fig:sampled_spectrum} shows no aliasing because $f_s=50\,\text{Hz} > 20\,\text{Hz}=2B_{eff}$. Aliasing would manifest as overlapping spectra, which is absent.
+    \item \textbf{Quantization Error vs. Levels:} With $L=16$ levels, the error bound in Fig.~\ref{fig:error} is approximately $\pm0.15$. Increasing $L$ would decrease the step size $\Delta$, thereby reducing this bound and improving signal quality.
+    \item \textbf{Bitrate:} For $f_s=50$ Hz and $L=16$ levels ($4$ bits/sample), the bitrate is $50 \times 4 = 200$ bits per second.
+\end{itemize}
+
+\section{Conclusion}
+This laboratory provided a practical verification of fundamental digital signal processing concepts. The sampling theorem was confirmed: A signal can be perfectly reconstructed from its samples if the sampling frequency exceeds twice the signal's bandwidth. Furthermore, the quantization process was implemented, characterized, and shown to be the source of a fundamental bounded error in digital systems. The trade-offs between sampling rate, quantization levels, and bitrate are critical design considerations in all digital communication systems.
+
+\printbibliography
+
+\end{document}
