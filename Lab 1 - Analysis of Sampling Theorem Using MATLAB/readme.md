@@ -11,34 +11,64 @@ The main objectives of this lab is to use the provided MATLAB codes to:
 
 * Experiment 1: Sampling Theorem
  Analysis.
- 1) The signal x(t) was generated with a high time res
-olution (td = 0.002 s) to simulate a continuous-time
- waveform over a 1 second interval.
- 2) Its spectrum was computed using the Fast Fourier Trans
-form (FFT).
- 3) The signal was sampled at fs = 50 Hz (ts = 0.02 s).
- 4) The spectrum of the sampled signal was calculated and
+Though I used the MATLAB codes for the report.I've also included the [Python code](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/src/Python%20codes/Sampling%20and%20%20Reconstruction.py) 
+Having run the code [provided](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/src/MATLAB%20codes/Experiment%20one%20-sampling%20theorem%20analysis/1.%20Sampling%20theorem%20analysis.m) for sampling theorem, the following were the results:
+  * The input message.
+    As shown below .
+    ![Input message](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/1.%20Sampling%20theory/fig%201.png)
+ The signal x(t) was generated with a high time resolution (td = 0.002 s) to simulate a continuous-time waveform over a 1 second interval.
+    
+   * The spectrum of input message signal
+This is how the spectrum of the input signal appeared.
+![The spectrum](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/1.%20Sampling%20theory/fig%201.png)
+ Its spectrum is computed using the Fast Fourier Transform (FFT).
+* Sampled signal
+  After sampling , the signal is as below
+  ![Sampled signal](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/1.%20Sampling%20theory/fig%203.png)
+ The signal was sampled at fs = 50 Hz (ts = 0.02 s).
+* The spectrum of the sampled signal
+  
+ The spectrum of the sampled signal was calculated and
  plotted.
+ It looks like this :
+ ![spectrum of the sampled signal](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/1.%20Sampling%20theory/fig%204.png)
 
-Find the code used for this experiment 1 (MATLAB code)[]
-I've also included the (Python code)[]
 
 * Experiment 2: Signal Reconstruction
  1) The sampled signal was upsampled and zero filled to
  facilitate frequency-domain filtering.
- 2) An ideal low-pass filter (LPF) with a cutoff frequency of
+
+![Spectrum of the sampled signal](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/2.%20Reconstruction/fig%201.2.png)
+
+ 3) An ideal low-pass filter (LPF) with a cutoff frequency of
+    
  10 Hz (the signal’s effective bandwidth) was designed
  in the frequency domain.
- 3) The spectrum of the sampled signal was multiplied by
+ ![Transfer fn of lpf](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/2.%20Reconstruction/fig%202.2.png)
+ 
+ 4) The spectrum of the sampled signal was multiplied by
  the LPF’s transfer function.
- 4) The inverse FFT (IFFT) of the filtered spectrum was
+![spectrum of lpf](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/2.%20Reconstruction/fig%203.2.png)
+
+ 6) The inverse FFT (IFFT) of the filtered spectrum was
  computed to reconstruct the signal in the time domain.
+![original vs reconstructed](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/2.%20Reconstruction/fig%203.2.png)
  The MATLAB code for this experiment are (here)[]
  
  *  C. Quantization
+The following MATLAB codes were run ;
+[quantization.m](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/src/MATLAB%20codes/Quantization/Quantization.m)
+For formalarlity, also find the Python code here:
+[quantization.py](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/src/Python%20codes/Quantization.py)
  1) The signal sampled from Experiment 1 was quantized
  using uniform levels of L = 16.
+![sampled vs quant](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/3.%20Quantization/fig%201.3.png)
  2) The quantized signal was plotted against the original
  sampled signal.
  3) The quantization error was calculated and plotted.
- The (MATLAB code)[] used in this experiment.
+    ![quant error](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/3.%20Quantization/fig%202.3.png)
+
+    ---
+For more detailed analysis of this lab , find the lab report below;
+
+ [THE LAB REPORT](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Report/Lab%201%20report.pdf)
