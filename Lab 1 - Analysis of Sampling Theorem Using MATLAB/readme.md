@@ -23,7 +23,7 @@ Having run the code for sampling theorem, the following were the results:
    * The spectrum of input message signal
 This is how the spectrum of the input signal appeared.
 
-![The spectrum](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/1.%20Sampling%20theory/fig%201.png)
+![The spectrum](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/1.%20Sampling%20theory/fig%202.png)
  Its spectrum is computed using the Fast Fourier Transform (FFT).
  
 * Sampled signal
@@ -76,7 +76,8 @@ For formalarlity, also find the Python code here:
 ![sampled vs quant](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/3.%20Quantization/fig%201.3.png)
  The quantized signal was plotted against the original sampled signal.
  The quantization error was calculated and plotted.
-    ![quant error](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/3.%20Quantization/fig%202.3.png)
+
+   ![quant error](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Figures/3.%20Quantization/fig%202.3.png)
 
 ---
 # For more detailed analysis of this lab , find the lab report below;
