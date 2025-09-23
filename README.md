@@ -4,8 +4,9 @@ This repository contains various laboratory exercises on digital communication. 
 
 ## Laboratory Exercises
 
-- [Lab 1 - Analysis of Sampling Theorem Using MATLAB](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/tree/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB)
-- Lab 2 (will be updated soon)
+- [Lab 1 - Analysis of Sampling Theorem Using MATLAB](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/tree/main/1.%20Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB)
+- [Spectrum analysis and Wide Sense Stationarity (WSS)](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/tree/main/Spectrum%20and%20simulation)
+- [Lab 2 ](will be updated soon)
 
 ---
 
