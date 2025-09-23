@@ -1,7 +1,7 @@
 # Digital Signal Spectrum Analysis Project
 
-## Project Overview
-This repository contains analysis and simulation of digitally transmitted signals, focusing on spectrum analysis and Wide Sense Stationarity (WSS) concepts.
+## Overview
+This directory contains analysis and simulation of digitally transmitted signals, focusing on spectrum analysis and Wide Sense Stationarity (WSS) concepts.
 
 ## Problem Statement
 We analyze a digitally transmitted signal of the form:
@@ -24,10 +24,9 @@ where:
 ## Directory Structure
 ```
 /
-├── matlab/          # MATLAB implementation files
-├── python/          # Python implementation files
-├── docs/            # Documentation and theoretical analysis
-└── results/         # Simulation results and plots
+├── src/          # MATLAB and Python implementation files
+├──report/          # contains files I used to generate the report on overleaf
+└── results/         # Simulation results,plots and hand calculations.
 ```
 
 ## Implementation Details
