@@ -82,4 +82,4 @@ For formalarlity, also find the Python code here:
 ---
 # For more detailed analysis of this lab , find the lab report below;
 
- [THE LAB REPORT](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Report/Lab%201%20report.pdf)
+ [THE LAB REPORT](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/1.%20Lab%201%20-%20Analysis%20of%20Sampling%20Theorem%20Using%20MATLAB/Report/Lab%201%20report.pdf)
