@@ -1,4 +1,4 @@
-# Digital Signal Spectrum Analysis Project
+# Digital Signal Spectrum Analysis
 
 ## Overview
 This directory contains analysis and simulation of digitally transmitted signals, focusing on spectrum analysis and Wide Sense Stationarity (WSS) concepts.
