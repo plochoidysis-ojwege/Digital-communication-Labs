@@ -1,5 +1,4 @@
 
-% Self-contained script to generate, sample, quantize, and plot signals
 
 clear; close all; clc;
 
