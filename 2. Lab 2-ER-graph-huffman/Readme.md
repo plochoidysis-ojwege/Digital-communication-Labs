@@ -1,4 +1,4 @@
-# Lab 2 — Design & Implementation of Lossless Compression
+# Lab 2 - Design & Implementation of Lossless Compression
 ( Bernoulli Sequences and Erdős–Rényi Graphs )
 
 ## 1. Objectives
