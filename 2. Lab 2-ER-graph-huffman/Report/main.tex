@@ -1,0 +1,298 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+ \usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs} 
+\usepackage{hyperref}
+\usepackage{xcolor}  
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    citecolor=magenta
+}
+
+\begin{document}
+
+\title{Digital Communications Lab 2: Design and Implementation of Lossless Compression for Bernoulli Sequences and Erdős-Renyi Graphs}
+
+\author{
+\IEEEauthorblockN{Denzel Ninga}
+\IEEEauthorblockA{Department of Electrical and Communication Engineering\\
+Multimedia University of Kenya\\
+Reg. No: ENG-219-042/2022}
+}
+
+\maketitle
+
+\section{Objectives}
+The main objectives of this lab were to:
+\begin{enumerate}
+    \item Design and implement an optimal lossless compression algorithm for a Bernoulli sequence.
+    \item Extend the approach to compress an Erdős-Renyi (ER) random graph.
+\end{enumerate}
+
+\section{Introduction}
+\subsection{Information Theory and Source Coding}
+Information theory, founded by Shannon, explains the fundamental limits of data compression and transmission. For data compression, the entropy of the source is very important.
+
+\subsubsection{Entropy and Source Model}
+The entropy $H(X)$ of a discrete random variable $X$ measures the average uncertainty in the variable. It is defined as:
+\begin{equation}
+H(X) = -\sum_{x \in \mathcal{X}} p(x) \log p(x) \quad \text{(bits)}
+\label{eq:entropy}
+\end{equation}
+
+This represents the minimum average number of bits required to describe the random variable.
+
+In this lab, the source is a Bernoulli sequence where binary outcomes (0 or 1) are independent and identically distributed (i.i.d.) with probabilities $p(1)=p$ and $p(0)=q$. The resulting sequence is compressible because the source is nonuniform ($p \ne 0.5$) \cite[p. 6]{Cover2006}.
+
+The behavior of long i.i.d. sequences is governed by the Asymptotic Equipartition Property (AEP). The AEP states that for a long sequence of length $n$, the probability of the observed sequence $p(X_1, \dots, X_n)$ is roughly $2^{-nH(X)}$ \cite[p. 58]{Cover2006}. This shows that almost all long sequences are in the typical set and are almost equally surprising, validating the theoretical possibility of efficient compression.
+
+\subsubsection{Limits on Lossless Compression}
+Constructing variable-length codes that achieve the entropy limit is constrained by the geometry of the code tree. The set of possible codeword lengths for instantaneous codes is limited by the Kraft inequality which states that: for any instantaneous code (prefix code) over an alphabet of size $D$, the codeword lengths $l_1, l_2, \dots, l_m$ must satisfy:
+\begin{equation}
+\sum_{i=1}^m D^{-l_i} \leq 1
+\label{eq:kraft}
+\end{equation}
+\cite[p. 107]{Cover2006}.
+
+This inequality confirms that the optimal average length of codewords $L^*$ for a code must satisfy the following bounds:
+\begin{equation}
+H_D(X) \leq L^* < H_D(X) + 1
+\label{eq:codeword_bounds}
+\end{equation}
+\cite[p. 113]{Cover2006}.
+
+\subsection{Lossless Compression Algorithms}
+For optimal compression, the algorithms must approach the entropy $H(X)$. The following methods achieve this:
+
+\begin{itemize}
+    \item \textbf{Huffman Coding}
+    
+    This method builds optimal prefix codes but is limited to integral codeword lengths.It is optimal for encoding a random variable with a known distribution that must be encoded symbol by symbol. 
+    For D-ary codes, the algorithm combines D symbols at each step. 
+    
+    \textbf{Example: Ternary Huffman Code ($D=3$)}
+    
+    Consider a random variable $X$ with alphabet size 5. The ternary Huffman code is constructed by repeatedly combining the three least probable symbols:
+    
+    \begin{table}[ht]
+    \centering
+    \caption{Ternary Huffman Code Example}
+    \label{tab:ternary_huffman}
+    \begin{tabular}{ccc}
+    \toprule
+    \textbf{Codeword} & \textbf{Symbol $X$} & \textbf{Probability} \\
+    \midrule
+    1 & 1 & 0.25 \\
+    2 & 2 & 0.25 \\
+    00 & 3 & 0.25 \\
+    01 & 4 & 0.15 \\
+    02 & 5 & 0.15 \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    The average length is calculated as:
+    \[
+    L = (0.25 \times 1) + (0.25 \times 1) + (0.25 \times 2) + (0.15 \times 2) + (0.15 \times 2) = 1.5 \text{ ternary digits}
+    \]
+    
+    This code satisfies the Kraft inequality: $\sum_{i=1}^5 3^{-l_i} = 3^{-1} + 3^{-1} + 3^{-2} + 3^{-2} + 3^{-2} \leq 1$.\cite[p. 118]{Cover2006}
+    
+    \item \textbf{Arithmetic Coding}
+    
+    In arithmetic coding, instead of using a sequence of bits to represent a symbol, we represent it by a subinterval of the unit interval. This is an incremental coding where the intergral length constraint is avoided.
+    Example;
+    \begin{quotation}
+\noindent \textbf{Lemma } \cite[pp. 434-435]{Cover2006}.: 
+\textit{Let \(Y\) be a random variable with continuous probability distribution function \(F(y)\). Let \(U=F(Y)\) (i.e., \(U\) is a function of \(Y\) defined by its distribution function). Then \(U\) is uniformly distributed on \([0,1]\).}
+
+\noindent \textit{Proof:} Since \(F(y)\in[0,1]\), the range of \(U\) is \([0,1]\). Also, for \(u\in[0,1]\),
+\begin{align*}
+F_{U}(u) &= \Pr(U\leq u) \\
+&= \Pr(F(Y)\leq u) \\
+&= \Pr(Y\leq F^{-1}(u)) \\
+&= F(F^{-1}(u)) \\
+&= u,
+\end{align*}
+which proves that \(U\) has a uniform distribution in \([0,1]\). $\Box$
+
+\noindent Now consider an infinite sequence of random variables \(X_{1},X_{2},\ldots\) from a finite alphabet \(\mathcal{X}=\{0,1,2,\ldots,m\}\). For any sequence \(x_{1},x_{2},\ldots\), from this alphabet, we can place \(0\). in front of the sequence and consider it as a real number (base \(m+1\)) between \(0\) and \(1\). Let \(X\) be the real-valued random variable \(X=0.X_{1}X_{2}\ldots\). Then \(X\) has the following distribution function:
+\begin{align*}
+F_{X}(x) &= \Pr\{X\leq x=0.x_{1}x_{2}\cdots\} \\
+&= \Pr\{0.X_{1}X_{2}\cdots\leq 0.x_{1}x_{2}\cdots\} \\
+&= \Pr\{X_{1}<x_{1}\}+\Pr\{X_{1}=x_{1},\,X_{2}<x_{2}\}+\cdots.
+\end{align*}
+
+\noindent Now let \(U=F_{X}(X)=F_{X}(0.X_{1}X_{2}\ldots)=0.F_{1}F_{2}\ldots\). If the distribution on infinite sequences \(X^{\infty}\) has no atoms, then, by the lemma above, \(U\) has a uniform distribution on \([0,1]\), and therefore the bits \(F_{1},F_{2},\ldots\) in the binary expansion of \(U\) are Bernoulli\((\frac{1}{2})\) (i.e., they are independent and uniformly distributed on \([0,1]\)). These bits are therefore incompressible, and form a compressed representation of the sequence \(0.X_{1}X_{2}\ldots\). For Bernoulli or Markov models, it is easy to calculate the cumulative distribution function, as illustrated in the following example.
+\end{quotation}
+    
+    \item \textbf{Lempel-Ziv (LZ) Coding}
+    This method is universally optimal and easy to implement.Their asymptotic compression rate approaches the entropy rate of the source for any stationary ergodic source.
+    
+     Since the objective of this lab was to focus on one lossless compression algorithm, I focused more on huffman coding , and that is all I got for the Lempel-Ziv (LZ) Coding.
+\end{itemize}
+
+\subsection{Graph Theory and the Erdős-Rényi Model}
+
+The source data to be compressed is derived from the structure of an ER random graph. A graph $G=(V, E)$, is a set of vertices $V$ and a collection of edges $E$ that join pairs of vertices \cite[p. 1]{Balakrishnan1997}.
+
+The theory of random graphs focuses on the typical properties of graphs within a given probability space \cite[p. xiii]{Bollobas2001}. The relevant model for this experiment is $\mathbb{G}(n,p)$, where $n$ is the number of vertices and $p$ is the probability that there is any specific edge \cite[p. 34]{Bollobas2001}.
+
+In the $\mathbb{G}(n,p)$ model, each of the $\binom{n}{2}$ possible edges is included independently with probability $p$ \cite[p. 35]{Bollobas2001}. The binary representation of this graph (e.g., its adjacency matrix) is composed of $\binom{n}{2}$ independent Bernoulli trials, where the value of $p$ is directly related to the probability $p(1)$ of a given edge. Thus, the application of source coding to the graph's binary sequence is a direct test of the entropy-based limits for this graph structure.
+
+An example is as shown below:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Erdos_generated_network-p0.01-300x152.jpg}
+    \caption{A graph generated by the binomial model of Erdos and Rényi (p = 0.01).}
+    \label{fig:er_graph}
+\end{figure}
+
+
+\section{Procedure}
+\label{sec:methodology}
+This experiment was conducted in MATLAB and involved four main steps .The chosen lossless compression method I chose was Huffman coding.After the end of it all, I updated all the figures , source codes in my github repository in the directory link below:
+\href{https://github.com/plochoidysis-ojwege/Digital-communication-Labs/tree/main/2.%20Lab%202-ER-graph-huffman}{GitHub Repository-Digital communication lab 2}
+The process was as follows:
+\subsection{Source Data Generation}
+The input data was generated through the following steps:
+\begin{itemize}
+    \item Simulation of an Erdős-Rényi random graph $\mathbb{G}(n,p)$ with parameters $n=75$ and $p=0.2$
+    \item Calculation of total possible edges: $L_{\text{source}} = \binom{n}{2} = 2,775$
+    \item Generation of a binary Bernoulli sequence $S$ of length $L_{\text{source}}$, with each bit independently distributed with probability $p$
+\end{itemize}
+
+\subsection{Statistical Analysis }
+The theoretical framework was established by:
+\begin{itemize}
+    \item Computing the theoretical entropy:
+    \[
+    H(X) = -p \log_2(p) - (1-p) \log_2(1-p)
+    \]
+    \item Determining empirical probabilities ($\hat{p}_0, \hat{p}_1$) through frequency analysis of sequence $S$
+\end{itemize}
+
+\subsection{Huffman Code Implementation}
+The compression algorithm was implemented as follows:
+\begin{itemize}
+    \item Construction of optimal Huffman codes using empirical probabilities via \texttt{huffmandict()} function
+    \item Extraction of codeword lengths ($l_0, l_1$) and computation of average codeword length $L_{\text{avg}}$
+\end{itemize}
+
+\subsection{Performance Measurement}
+System performance was evaluated through:
+\begin{itemize}
+    \item Calculation of actual compressed length: $L_{\text{comp}} = L_{\text{avg}} \times L_{\text{source}}$
+    \item Determination of compression efficiency:
+    \[
+    \eta = \frac{H(X)}{L_{\text{avg}}} \times 100\%
+    \]
+    \item Generation of theoretical entropy curve $H(p)$ versus $p$ for comparative analysis
+\end{itemize}
+
+\section{Results and Analysis}
+After running the MATLAB code available in link below:
+\href{https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/2.%20Lab%202-ER-graph-huffman/src/er-graph-huffman-matlab.m}{src:The MATLAB code used.}
+
+The MATLAB code ran successfully and produced the following results:
+
+\subsection{Numerical Results}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{results.png}
+\caption{Numerical results}
+\label{fig:results}
+\end{figure}
+
+The MATLAB implementation was run with parameters $n = 75$ vertices and edge probability $p = 0.2$. The results was a shown above and summarized below :
+
+\begin{table}[h!]
+\centering
+\caption{Compression Performance Metrics}
+\label{tab:results}
+\begin{tabular}{|l|r|}
+\hline
+\textbf{Parameter} & \textbf{Value} \\
+\hline
+Source length ($L_{\text{source}}$) & 2775 bits \\
+Theoretical entropy ($H(X)$) & 0.7219 bits/symbol \\
+Theoretical minimum length ($L_{\text{min}}$) & 2003.35 bits \\
+Average codeword length ($L_{\text{avg}}$) & 1.0000 bits/symbol \\
+Compressed length ($L_{\text{comp}}$) & 2775.00 bits \\
+Compression efficiency ($\eta$) & 72.19\% \\
+Empirical $P(0)$ & 0.7957 \\
+Empirical $P(1)$ & 0.2043 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Entropy Analysis}
+Figure~\ref{fig:entropy} shows the theoretical entropy curve for a Bernoulli source across different probabilities. The operating point at $p = 0.2$ is marked, showing an entropy of 0.7219 bits/symbol, which represents the theoretical limit for lossless compression.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{Entropy_Curve.png}
+\caption{Source entropy vs. probability for Bernoulli sequence}
+\label{fig:entropy}
+\end{figure}
+
+\subsection{Erdos-Renyi Graph Visualization}
+Figure~\ref{fig:ergraph} shows an Erdos-Renyi graph with $n = 10$ vertices and $p = 0.2$. This provides a visual overview of the graph being compressed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{ER_Graph_Conceptual.png}
+\caption{Example Erdos-Renyi graph visualization ($n=10$, $p=0.2$)}
+\label{fig:ergraph}
+\end{figure}
+
+
+\section{Discussion}
+The results confirmed the theoretical bounds of the source but the compression failed.
+\subsection{The optimality failure}
+The single symbol Huffman coding achieved an average code length of $L_{\text{avg}} = 1.000$ bits/symbol in this case, resulting in no compression ($L_{\text{comp}} = L_{\text{source}}$).
+
+This happened because:
+\begin{itemize}
+
+\item With only two symbols (0 and 1), Huffman coding cannot assign variable-length codes shorter than 1 bit per symbol
+
+\item The empirical probabilities ($P(0) = 0.7957$, $P(1) = 0.2043$) are not sufficiently skewed to enable compression at the symbol level
+
+\item The compression efficiency of 72.19\% represents the theoretical potential, but practical compression requires block coding approaches
+
+\end{itemize}
+
+\subsection{Achieving optimality}
+To address this failure and achieve the theoretical limit, a more complex approach is required:
+\begin{itemize}
+\item Use of Block coding - Practical compression for this Bernoulli source requires Block Huffman Coding.Which allows grouping of source symbols into blocks (e.g., pairs of size $k=2$, resulting in a 4-symbol alphabet: 00, 01, 10, 11). This allows the codeword length to be less than 1.000 bit/source symbol satisfying the theoretical constraint: $$L_{\text{avg}} \rightarrow H(X)$$
+\item Use of a different lossless compression algorithm - using Arithmetic Coding or Lempel-Ziv Coding would also solve this issue. They are designed to operate on sequences and avoids integer codeword length constraint . The efficiency of these these methods would be somewhere nearer to 100 percent , successfully achieving the objectives.
+\section{Sources of Error}
+Sources of errors that can cause a mismatch between the theory and the practical implementation inlude the following :
+
+\subsection{Huffman Integer Length Constraint }
+As discussed, the single-symbol Huffman code must assign integer lengths ($l_0=1$, $l_1=1$), resulting in $L_{\text{avg}}=1.000$ bit/symbol. This constraint causes the achieved efficiency to mismatch the theory $H(X)$, violating the asymptotic optimality at $k=1$.
+
+\subsection{Finite Sequence Length}
+The theory relies on an infinitely long source sequence. Using a finite sequence ($L_{\text{source}}=2,775$) means the empirical probabilities ($\hat{P}(0)=0.7957$) used to build the code are a statistical estimate that deviates slightly from the true theoretical probability ($P(0)=0.80$). This minor deviation contributes marginally to non-optimality.
+
+\subsection{Floating-Point Arithmetic}
+All calculated values, including the entropy $H(X)$ and the minimum length $L_{\min}$, rely on floating-point arithmetic in MATLAB, which introduces minor rounding and numerical errors into the comparison metrics.
+\end{itemize}
+\section{Conclusion}
+The objective of designing and analyzing a lossless compression algorithm for an Erdős-Rényi random graph source was achieved. The theoretical analysis confirmed that the source could be compressed , showing a theoretical entropy of $H(X) = 0.7219$ bits/symbol. However, the implemented single-symbol Huffman code resulted in zero compression ($L_{\text{avg}} = 1.000$ bit/symbol) and an efficiency of $72.19\%$. This failure has  been analyzed and attributed to the fundamental limitation of integer-length codes applied to a binary alphabet, a theoretical constraint established by the Kraft Inequality. 
+
+For future work, it is recommended that Block Huffman Coding or Arithmetic Coding to be implemented to satisfy the theoretical requirement that $L_{\text{avg}} \rightarrow H(X)$, thereby successfully achieving asymptotic optimality.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
