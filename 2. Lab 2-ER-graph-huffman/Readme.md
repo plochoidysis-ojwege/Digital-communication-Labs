@@ -43,5 +43,6 @@ ER graph example:
 
 ## 8. Sources & references
 - Bibliography: `Report/references.bib`  
-- Final PDF report: `Report/DIG_COMM_lab_2.pdf`  
+- Final PDF report: `Report/main.pdf`
+  or find it through the link; [main.pdf](https://github.com/plochoidysis-ojwege/Digital-communication-Labs/blob/main/2.%20Lab%202-ER-graph-huffman/Report/main.pdf)
 - MATLAB source: `src/er-graph-huffman-matlab.m`
