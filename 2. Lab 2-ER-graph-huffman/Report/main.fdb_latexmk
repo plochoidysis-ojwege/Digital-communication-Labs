@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1762852819.31092 "main.aux" "main.bbl" "main" 1762852821.87574 0
+["bibtex main"] 1762857578.32912 "main.aux" "main.bbl" "main" 1762857580.90042 0
   "./references.bib" 1762850291 1674 03f51322eb93657e267d63e4be838f1e ""
   "C:/Users/PC/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1762852820 5401 306a6e611bf3069a67b21387540a4823 "pdflatex"
+  "main.aux" 1762857580 5573 bbaa2e75eccfabbeb4f0c9a0b3dc955b "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1762852819.78652 "e:/Github Projects/My Own repos/Digital communication Labs/2. Lab 2-ER-graph-huffman/Report/main.tex" "main.pdf" "main" 1762852821.87662 2
+["pdflatex"] 1762857578.68329 "e:/Github Projects/My Own repos/Digital communication Labs/2. Lab 2-ER-graph-huffman/Report/main.tex" "main.pdf" "main" 1762857580.90112 0
   "C:/Users/PC/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762852810 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/PC/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1757948396 24223671 b81f31120b4659ae4067bb61dab2857f ""
   "C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -115,15 +115,15 @@
   "C:/Users/PC/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1751104012 9684 a33a14b82ce60d6e77cb9be689d79ee6 ""
   "C:/Users/PC/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/PC/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "ER_Graph_Conceptual.png" 0 -1 0 ""
-  "Entropy_Curve.png" 0 -1 0 ""
-  "Erdos_generated_network-p0.01-300x152.jpg" 0 -1 0 ""
-  "e:/Github Projects/My Own repos/Digital communication Labs/2. Lab 2-ER-graph-huffman/Report/main.tex" 1762852798 16409 56d7c8d53a030429551407a5a51be964 ""
-  "main.aux" 1762852820 5401 306a6e611bf3069a67b21387540a4823 "pdflatex"
-  "main.bbl" 0 -1 0 "bibtex main"
-  "main.out" 1762852820 4067 af1646acd809e6bb66f2e9ea862d6126 "pdflatex"
-  "main.tex" 1762852798 16409 56d7c8d53a030429551407a5a51be964 ""
-  "results.png" 0 -1 0 ""
+  "ER_Graph_Conceptual.png" 1762784789 44962 1902346c411594254fb3a93a69d87cf2 ""
+  "Entropy_Curve.png" 1762784823 56242 5735b8791381db94f970c87492b16f2e ""
+  "Erdos_generated_network-p0.01-300x152.jpg" 1762850220 5680 6a6aff0c0a898944127069a8a9948b7d ""
+  "e:/Github Projects/My Own repos/Digital communication Labs/2. Lab 2-ER-graph-huffman/Report/main.tex" 1762857572 16409 a16324bea059d4825eb62fad366cd208 ""
+  "main.aux" 1762857580 5573 bbaa2e75eccfabbeb4f0c9a0b3dc955b "pdflatex"
+  "main.bbl" 1762857578 1753 b61b20869c3cdb08bb8191d30bc1795e "bibtex main"
+  "main.out" 1762857580 4162 39020241457c65cd90247af31ed3db3a "pdflatex"
+  "main.tex" 1762857572 16409 a16324bea059d4825eb62fad366cd208 ""
+  "results.png" 1762802185 36816 57d7b4028eb521b40c345ce91904d29b ""
   (generated)
   "main.aux"
   "main.log"
