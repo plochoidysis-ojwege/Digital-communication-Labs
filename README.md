@@ -11,5 +11,5 @@ This repository contains various laboratory exercises on digital communication. 
 ---
 
 ### About the Labs
-These labs are designed to provide practical experience with fundamental digital communication principles. Each lab focuses on a specific concept, with code and explanations to demonstrate the theory in practice.
+These labs cover fundamental digital communication principles. Each lab focuses on a specific concept, with code and explanations to demonstrate the theory in practice.
 Stay tuned for more updates.
